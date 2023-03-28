@@ -8,6 +8,7 @@ Usage:
 """
 import os
 import sqlite3
+import pandas
 from create_relationships import db_path
 
 def main():
@@ -38,7 +39,7 @@ def get_married_couples():
     type = 'spouse';
     """
     # Execute the query and get all results
-    relationships = cur.execute(spouse_relationships_query)
+    relationships = cur.execute(spouse_relationships_query).fetchall()
     
     return relationships
 
@@ -50,8 +51,9 @@ def save_married_couples_csv(married_couples, csv_path):
         married_couples (list): (name1, name2, start_date) of married couples
         csv_path (str): Path of CSV file
     """
+    married_df = pandas.DataFrame(married_couples)
     
-    return
+    married_df.to_csv(csv_path)
 
 if __name__ == '__main__':
    main()
