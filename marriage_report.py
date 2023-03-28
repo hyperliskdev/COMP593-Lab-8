@@ -14,7 +14,8 @@ def main():
     # Query DB for list of married couples
     married_couples = get_married_couples()
 
-    
+    for p1, p2, start_date in married_couples:
+        print(f'{p1} has been married to {p2} since {start_date}.')
 
     # Save all married couples to CSV file
     csv_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'married_couples.csv')
@@ -38,10 +39,7 @@ def get_married_couples():
     """
     # Execute the query and get all results
     relationships = cur.execute(spouse_relationships_query)
-
-    for person1, person2, start_date in relationships:
-        print(f'{person1} has been married to {person2} since {start_date}.')
-
+    
     return relationships
 
 def save_married_couples_csv(married_couples, csv_path):
